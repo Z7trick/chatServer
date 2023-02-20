@@ -10,14 +10,7 @@ const onDisconnect = async (socket) => {
 		connected: false,
 		logoutTime: new Date().toLocaleString(),
 	});
-	// await UserModel.findOneAndUpdate(
-	// 	{ username: socket.user._id },
-	// 	{
-	// 		connected: false,
-	// 		logoutTime: new Date().toLocaleString(),
-	// 	}
-	// );
-	const user = await UserModel.findOne({ username: socket.user.username });
+	const user = await UserModel.findById(socket._id);
 	const userFriendList = user?.friendList;
 	const friendRooms = await parseFriendList(userFriendList).then((friends) =>
 		friends.map((friend) => friend.username)
