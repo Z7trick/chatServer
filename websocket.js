@@ -13,6 +13,7 @@ mongoose
 const app = express();
 const http = require("http");
 const server = http.createServer(app);
+const port = 3000;
 const { Server } = require("socket.io");
 const { corsConfig } = require("./controllers/serverController");
 const authRouter = require("./routers/authRouter");
@@ -44,7 +45,7 @@ io.on("connection", (socket) => {
 	socket.on("disconnecting", () => onDisconnect(socket));
 });
 
-server.listen(3000, () => {
+server.listen(process.env.PORT || port, () => {
 	console.log("listening on *:3000");
 });
-module.exports = app;
+// module.exports = app;
