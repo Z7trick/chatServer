@@ -4,11 +4,12 @@ const UserModel = require('../../models/User');
 const attemptRegister = async (req, res) => {
 	try {
 		const password = req.body.password;
+		const username = req.body.username.toLowerCase();
 		const salt = await bcrypt.genSalt(10);
 		const hash = await bcrypt.hash(password, salt);
 
 		const doc = new UserModel({
-			username: req.body.username,
+			username: username,
 			passwordHash: hash,
 		});
 
